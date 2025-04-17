@@ -1,0 +1,9 @@
+#+TITLE: Emacs Literate Configuration
+#+AUTHOR: Roie R. Black
+#+Date: April 17, 2025
+
+#+begin_src: elisp :tangle yes
+;; elisp.org - copyright 2025 by Roie Black
+#+end_src
+
+
