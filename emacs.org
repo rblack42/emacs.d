@@ -2,8 +2,87 @@
 #+AUTHOR: Roie R. Black
 #+Date: April 17, 2025
 
-#+begin_src: elisp :tangle yes
+This document uses /Emacs/ /*org-mode* to bbuilt the *init.el* file that
+configures the editor. You will see normal commentary with fragments of code
+intersperved. /Emacs/ will be used to extract the actual *init.el* file. This
+can be done using simple commands in the editor, or using a *Makefile* included
+in this project.
+
+Here is the start of the *init.el* file:
+
+#+begin_src elisp :tangle init.el
 ;; elisp.org - copyright 2025 by Roie Black
+;;-----------------------------------------
+(package init)
 #+end_src
 
+* Locating Component Files
+
+Rather than build one gigantic file, The file will be broken up into separate
+parts, each focusing on one aspect of the configuration. This will enable
+testing of one major component at a time.
+The component files will be stored in a *modules* subdirectory. We need to
+tell /Emacs/ about this:
+
+#+begin_src elisp :tangle init.el
+;; Add module dir to load_path
+(add-to-list 'load-path "/Users/rblack/_sys/emacs.d/modules")
+(add-to-list 'load-path ".")
+#+end_src
+
+* Simplifying Startup
+
+When /Emacs/ first starts in graphics mode it normally displays a splash screen identifying the
+program and displaying a few links to interesting things you can explore. After
+the first few times you use the program, this becomes a distractin. We can do
+some basic set up to stop this.
+
+#+begin_src elisp :tangle modules/rrb-ui.el
+;; do not display the splash screen
+(when (display-graphic-p)
+  (tool-bar-mode 0)
+  (scroll-bar-mode 0))
+(setq inhibit-startup-screen t)
+(column-number-mode)
+#+end_src
+
+* Testing The Setup
+
+At this point, we can run /Emacs and make sure it starts properly. 
+
+Run this command:
+
+#+begin_src bash :tangle no
+emacs -q -l init.el
+#+end_src
+
+** More simplifications
+
+Next, we can eliminate the tool bar and scroll bar. We could eliminate the menu,
+but on Macs, this is not a problem
+
+#+begin_src elist :tangle modules/rrb-ui.el
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+#+end_src
+
+** Create a Basic Theme
+
+There are many themes we could use. However, here is a basic block that sets
+colors in an easy to tweak block of code
+
+#+begin_src elisp :tangle modules/rrb-ui.el
+;; load an example dark theme
+(load-theme 'wombat)
+(with-eval-after-load 'wombat-theme
+  (set-face-background 'default "#111")
+  (set-face-background 'cursor "#c96")
+  (set-face-foreground 'font-lock-comment-face "#fc0")
+  (set-face-background 'isearch "#ff0")
+  (set-face-foreground 'isearch "#000")
+  (set-face-background 'lazy-highlight "#990")
+  (set-face-foreground 'lazy-highlight "#000"))
+
+#+end_src
 
