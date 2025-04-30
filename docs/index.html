@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2025-04-30 Wed 15:52 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Emacs Literate Configuration</title>
+<meta name="author" content="Roie R. Black" />
+<meta name="generator" content="Org Mode" />
+<link rel="stylesheet" type="text/css" href="src/readtheorg_theme/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="src/readtheorg_theme/css/readtheorg.css"/>
+<script type="text/javascript" src="src/lib/js/jquery.min.js"></script>
+<script type="text/javascript" src="src/lib/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="src/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="src/readtheorg_theme/js/readtheorg.js"></script>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">Emacs Literate Configuration</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgaa2da18">1. Locating Component Files</a></li>
+<li><a href="#org1241792">2. Simplifying Startup</a></li>
+<li><a href="#orgf9b78f6">3. Testing The Setup</a>
+<ul>
+<li><a href="#org3396ca0">3.1. More simplifications</a></li>
+<li><a href="#org9e40f22">3.2. Create a Basic Theme</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+This document uses <i>Emacs</i> <i><b>org-mode</b> to build the <b>init.el</b> file that
+configures the editor. You will see normal commentary with fragments of code
+interspersed. /Emacs</i> will be used to extract the actual <b>init.el</b> file. This
+can be done using simple commands in the editor, or using a <b>Makefile</b> included
+in this project.
+</p>
+
+<p>
+Here is the start of the <b>init.el</b> file:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">-*- lexical-binding: t -*-</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">elisp.org - copyright 2025 by Roie Black</span>
+<span class="org-comment-delimiter">;;</span><span class="org-comment">-----------------------------------------</span>
+(package-init)
+</pre>
+</div>
+<div id="outline-container-orgaa2da18" class="outline-2">
+<h2 id="orgaa2da18"><span class="section-number-2">1.</span> Locating Component Files</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Rather than build one gigantic file, The file will be broken up into separate
+parts, each focusing on one aspect of the configuration. This will enable
+testing of one major component at a time.
+The component files will be stored in a <b>modules</b> subdirectory. We need to
+tell <i>Emacs</i> about this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">Add module dir to load_path</span>
+(add-to-list 'load-path <span class="org-string">"/Users/rblack/_sys/emacs.d/modules"</span>)
+(add-to-list 'load-path <span class="org-string">"."</span>)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org1241792" class="outline-2">
+<h2 id="org1241792"><span class="section-number-2">2.</span> Simplifying Startup</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+When <i>Emacs</i> first starts in graphics mode it normally displays a splash screen identifying the
+program and displaying a few links to interesting things you can explore. After
+the first few times you use the program, this becomes a distractin. We can do
+some basic set up to stop this.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">-*- lexical-binding: t -*-</span>
+<span class="org-comment-delimiter">;; </span><span class="org-comment">do not display the splash screen</span>
+(<span class="org-keyword">when</span> (display-graphic-p)
+  (tool-bar-mode 0)
+  (scroll-bar-mode 0))
+(<span class="org-keyword">setq</span> inhibit-startup-screen t)
+(column-number-mode)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-orgf9b78f6" class="outline-2">
+<h2 id="orgf9b78f6"><span class="section-number-2">3.</span> Testing The Setup</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+At this point, we can run /Emacs and make sure it starts properly. 
+</p>
+
+<p>
+Run this command:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-bash">emacs -q -l init.el
+</pre>
+</div>
+</div>
+<div id="outline-container-org3396ca0" class="outline-3">
+<h3 id="org3396ca0"><span class="section-number-3">3.1.</span> More simplifications</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Next, we can eliminate the tool bar and scroll bar. We could eliminate the menu,
+but on Macs, this is not a problem
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elist">(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org9e40f22" class="outline-3">
+<h3 id="org9e40f22"><span class="section-number-3">3.2.</span> Create a Basic Theme</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+There are many themes we could use. However, here is a basic block that sets
+colors in an easy to tweak block of code
+</p>
+
+<div class="org-src-container">
+<pre class="src src-elisp"><span class="org-comment-delimiter">;; </span><span class="org-comment">load an example dark theme</span>
+(load-theme 'wombat)
+(<span class="org-keyword">with-eval-after-load</span> 'wombat-theme
+  (set-face-background 'default <span class="org-string">"#111"</span>)
+  (set-face-background 'cursor <span class="org-string">"#c96"</span>)
+  (set-face-foreground 'font-lock-comment-face <span class="org-string">"#fc0"</span>)
+  (set-face-background 'isearch <span class="org-string">"#ff0"</span>)
+  (set-face-foreground 'isearch <span class="org-string">"#000"</span>)
+  (set-face-background 'lazy-highlight <span class="org-string">"#990"</span>)
+  (set-face-foreground 'lazy-highlight <span class="org-string">"#000"</span>))
+
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: April 17, 2025</p>
+<p class="author">Author: Roie R. Black</p>
+<p class="date">Created: 2025-04-30 Wed 15:52</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

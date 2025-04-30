@@ -1,19 +1,23 @@
 #+TITLE: Emacs Literate Configuration
 #+AUTHOR: Roie R. Black
 #+Date: April 17, 2025
+#+SETUPFILE: org/theme-readtheorg-local.setup
+#+EXPORT_FILE_NAME: index
 
-This document uses /Emacs/ /*org-mode* to bbuilt the *init.el* file that
+
+This document uses /Emacs/ /*org-mode* to build the *init.el* file that
 configures the editor. You will see normal commentary with fragments of code
-intersperved. /Emacs/ will be used to extract the actual *init.el* file. This
+interspersed. /Emacs/ will be used to extract the actual *init.el* file. This
 can be done using simple commands in the editor, or using a *Makefile* included
 in this project.
 
 Here is the start of the *init.el* file:
 
 #+begin_src elisp :tangle init.el
+;; -*- lexical-binding: t -*-
 ;; elisp.org - copyright 2025 by Roie Black
 ;;-----------------------------------------
-(package init)
+(package-init)
 #+end_src
 
 * Locating Component Files
@@ -38,6 +42,7 @@ the first few times you use the program, this becomes a distractin. We can do
 some basic set up to stop this.
 
 #+begin_src elisp :tangle modules/rrb-ui.el
+;; -*- lexical-binding: t -*-
 ;; do not display the splash screen
 (when (display-graphic-p)
   (tool-bar-mode 0)

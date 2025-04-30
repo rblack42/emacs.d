@@ -1,0 +1,5 @@
+(defun prepare-export ()
+  (require 'package)
+  (package-initialize)
+  (require 'htmlize)
+  (setq org-html-htmlize-output-type 'css))

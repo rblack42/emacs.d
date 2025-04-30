@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t -*-
 ;; do not display the splash screen
 (when (display-graphic-p)
   (tool-bar-mode 0)
@@ -7,7 +8,7 @@
 
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
-(menu-bar-mode 1)
+(menu-bar-mode -1)
 
 ;; load an example dark theme
 (load-theme 'wombat)
@@ -19,8 +20,3 @@
   (set-face-foreground 'isearch "#000")
   (set-face-background 'lazy-highlight "#990")
   (set-face-foreground 'lazy-highlight "#000"))
-
-;; This is not really a UI setting, but it works on osx
-(setq trash-directory "~/.Trash")
-
-(provide 'rrb-ui)
