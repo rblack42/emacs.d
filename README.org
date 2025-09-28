@@ -1,0 +1,28 @@
+#+title Literate Emacs Configuration
+
+I taught beginning programmers in several college-level courses for many years.
+Traditionally, I introduced them to simple command line tools to build their
+projects. At the time, I used =vim= since it was easy to install and i could get
+them functional quickly. I never considered introducing =Emacs= since I knew the
+learning curve was steep, and they had other things to learn in my classes.
+
+This configuration for =Emacs= is an attempt to get the tool running in a
+useful way quickly. I chose to use Dr. Donald Knuth's /Literate Programming/
+approach, since I want to explain why each line in this configuration exists,
+and by so doing lead them through the setup process. I am envisioning a change
+in my course notes that would offer either path - =Emacs= or =vim=.  I also
+introduce my students to =git= early, and use /GitHub Classroom/ so their
+projects are always visible to me on /GitHub/ making providing help and grading
+much easier.
+
+* Initial Startup
+
+I am going to use =straight= to manage loading packages in this syste.
+In order to get =straight= set up, we need to disable the default package
+manager
+
+#+begin_src emacs-lisp :tangle early-init.el
+ (setq package-enable-at-startup nil)
+#+end_src
+
+
