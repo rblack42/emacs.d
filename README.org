@@ -1,4 +1,4 @@
-#+title Literate Emacs Configuration
+#+title: Literate Emacs Configuration
 
 I taught beginning programmers in several college-level courses for many years.
 Traditionally, I introduced them to simple command line tools to build their
@@ -21,8 +21,29 @@ I am going to use =straight= to manage loading packages in this syste.
 In order to get =straight= set up, we need to disable the default package
 manager
 
-#+begin_src emacs-lisp :tangle early-init.el
+#+begin_src: emacs-lisp :tangle early-init.el
  (setq package-enable-at-startup nil)
 #+end_src
 
+** Tangling
+e now have exactly one code block. If you ook at that block, you wills ee
+several things. First, the code in the block is written in /emacs-lisp/. Second,
+the *:tangle* markup is followed by the name of the file that this block will
+end up in. If that file does not exist, the "tangling" process will create it.
+If we introduce more code blocks that tangle to the same file, they will be
+added in sequence. 
 
+So, how do we do this "tangling" trick? 
+
+I prefer to set up a *Makefile* for my projects and use =make= to manage things
+like this. However, we do not have that file (yet) so how do we get started. You
+cna run this command at a shell prompt:
+
+#+begin_src: shell
+wmacs README.org --batch -l org -g org-babel-tangle
+#+end_src
+
+This command runs =emacs= in batch mode, which is handy for tasks like this.
+The *-l org* option loads the org-mode system that provide the tangling
+functions. The *-f org-babel-tangle* option tells =emacs= to tun the command
+that will read this entire file, "tangling" every code block it finds. 
