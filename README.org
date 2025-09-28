@@ -46,4 +46,21 @@ wmacs README.org --batch -l org -g org-babel-tangle
 This command runs =emacs= in batch mode, which is handy for tasks like this.
 The *-l org* option loads the org-mode system that provide the tangling
 functions. The *-f org-babel-tangle* option tells =emacs= to tun the command
-that will read this entire file, "tangling" every code block it finds. 
+that will read this entire file, "tangling" every code block it finds.
+
+** Makefile
+
+We can start a *Makefile* in a code -block
+
+#+begin_src: make :tangle Makefile
+# Makefile for building Emacs COnfiguration
+
+.PHONY: tangle
+tangle:
+
+    emacs README.org --batch -l org -f org-babel-tangle
+#+end_src
+
+Now run that tangle command again and your initial *Makefile* should be in your
+*emecs.d* directory
+ 
